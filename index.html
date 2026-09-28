@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reaction Speed Test</title>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+  body { height: 100vh; display: flex; align-items: center; justify-content: center; background: #111; transition: background 0.2s; }
+  #game {
+    width: 100%; height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; color: white; cursor: pointer;
+    user-select: none; padding: 20px;
+  }
+  #game.waiting { background: #1e90ff; }
+  #game.ready { background: #e11d48; }
+  #game.go { background: #22c55e; }
+  h1 { font-size: 3rem; font-weight: 800; }
+  p { font-size: 1.2rem; opacity: 0.9; margin-top: 10px; }
+  #result { font-size: 4rem; font-weight: 900; }
+  #best { margin-top: 15px; font-size: 1rem; opacity: 0.7; }
+  button { margin-top: 20px; padding: 12px 24px; border: none; border-radius: 999px; font-weight: 700; cursor: pointer; }
+</style>
+</head>
+<body>
+<div id="game" class="waiting">
+  <div id="content">
+    <h1 id="title">⚡ REACTION TEST</h1>
+    <p id="subtitle">Tap anywhere to start<br>Wait for GREEN then tap fast!</p>
+    <div id="result" style="display:none"></div>
+    <p id="best"></p>
+    <button id="retry" style="display:none">Try Again</button>
+  </div>
+</div>
+
+<script>
+const game = document.getElementById('game');
+const title = document.getElementById('title');
+const subtitle = document.getElementById('subtitle');
+const result = document.getElementById('result');
+const bestEl = document.getElementById('best');
+const retry = document.getElementById('retry');
+
+let state = 'waiting';
+let startTime,
