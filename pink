@@ -1,0 +1,63 @@
+/* style.css - Rickroll Edition */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: #111;
+  overflow: hidden;
+}
+
+#game {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  background: #1e90ff;
+  transition: background 0.3s;
+}
+
+#game.countdown {
+  background: #111;
+}
+
+#game.go {
+  background: #22c55e;
+}
+
+#title {
+  font-size: 5rem;
+  font-weight: 900;
+}
+
+#subtitle {
+  font-size: 1.3rem;
+  margin-top: 10px;
+  opacity: 0.8;
+}
+
+#video {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  z-index: 999;
+}
+
+#video iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
