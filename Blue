@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reaction Speed Test - Official</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family: sans-serif; }
+body { height:100vh; background:#111; overflow:hidden; }
+#game {
+  height:100vh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  text-align:center; color:white; cursor:pointer;
+  background:#1e90ff;
+}
+#game.countdown { background:#111; }
+#game.go { background:#22c55e; }
+h1 { font-size:5rem; font-weight:900; }
+p { font-size:1.3rem; margin-top:10px; }
+#video { display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:999; background:black; }
+#video iframe { width:100%; height:100%; border:none; }
+</style>
+</head>
+<body>
+
+<div id="game">
+  <h1 id="title">⚡ REACTION TEST</h1>
+  <p id="subtitle">Test if you're fast!<br>Tap to start</p>
+</div>
+
+<div id="video">
+  <iframe id="yt" src="" allow="autoplay; fullscreen"></iframe>
+</div>
+
+<script>
+const game = document.getElementById('game');
+const title = document.getElementById('title');
+const subtitle = document.getElementById('subtitle');
+const videoDiv = document.getElementById('video');
+const yt = document.getElementById('yt');
+
+let state = 'waiting';
+
+game.addEventListener('click', () => {
+  if (state !== 'waiting') return;
+  state = 'counting';
+  startCountdown();
+});
+
+function startCountdown() {
+  let count = 3;
+  game.className = 'countdown';
+  title.textContent = count;
+  subtitle.textContent = 'Get ready...';
+
+  const interval = setInterval(() => {
+    count--;
+    if (count > 0) {
+      title.textContent = count;
+      // fake suspense
+      navigator.vibrate && navigator.vibrate(100);
+    } else if (count === 0) {
+      title.textContent = 'GO!';
+      game.className = 'go';
+    } else {
+      clearInterval(interval);
+      rickroll();
+    }
+  }, 1000);
+}
+
+function rickroll() {
+  // BOOM
+  videoDiv.style.display = 'block';
+  // autoplay rickroll with sound
+  yt.src = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&controls=0&loop=1&playlist=dQw4w9WgXcQ';
+  title.textContent = '';
+  
+  // troll text after 2 sec
+  setTimeout(() => {
+    game.style.display = 'none';
+  }, 500);
+}
+
+// extra troll - if they try to exit with back button, vibrate
+window.addEventListener('beforeunload', () => {
+  navigator.vibrate && navigator.vibrate([200,100,200]);
+});
+</script>
+</body>
+</html>
